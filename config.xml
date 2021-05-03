@@ -1,0 +1,144 @@
+<image schemaversion="4.0" name="sample">
+    <description type="system">
+	<author>nameMCPTT TEAM</author>
+	<contact>mcptt_emc_team@te.ericsson.ca</contact>
+	<specification>MCPTT-AS-CENTOS8</specification>
+    </description>
+	
+    <profiles>
+        <profile name="QEMU" description="virtual machine for QEMU"/>
+        <profile name="VMWare" description="virtual machine for VMWare"/>
+    </profiles>
+    <preferences>
+        <version>4.0.0</version>
+        <packagemanager>dnf</packagemanager>
+	<bootsplash-theme>charge</bootsplash-theme>
+        <locale>en_US</locale>
+        <keytable>us</keytable>
+        <timezone>America/Montreal</timezone>
+        <rpm-check-signatures>false</rpm-check-signatures>
+    </preferences>
+    <preferences profiles="QEMU">
+        <type image="oem" format="qcow2" filesystem="xfs" kernelcmdline="console=ttyS0,115200" bootloader="grub2"/>
+    </preferences>
+    <preferences profiles="VMWare">
+        <type image="oem" format="vmdk" filesystem="xfs" kernelcmdline="console=tty0 console=ttyS0,115200" bootloader="grub2">
+	  <machine ovftype="vmware" HWversion="4" arch="x86_64" guestOS="CentOS8-x86" min_memory="2048" max_memory="16384" min_cpu="2" max_cpu="16" memory="4096" >
+            <vmconfig-entry>numvcpus="4"</vmconfig-entry>
+            <vmdisk id="0" controller="scsi" diskmode="streamOptimized"/>
+	  </machine>
+     	  <size unit='G' additive='false'>10</size>
+          <oemconfig>
+	    <oem-resize>false</oem-resize>
+	  </oemconfig>
+        </type>
+    </preferences>
+	<users>
+	  <user
+            password="Ericsson123"
+            home="/root" name="root" 
+            groups="root" pwdformat="plain"/>
+          <user
+            password="Ericsson123"
+            home="/home/mcpttadm" name="mcpttadm"
+            groups="mcpttadm" pwdformat="plain"/>
+          <user
+            password="glassfish123"
+            name="glassfish" groups="glassfish" 
+            pwdformat="plain"/>
+        </users>
+
+    <repository type="rpm-md" alias="CentOS8-iso-BaseOS">
+        <source path="dir:///root/local_repositories/CentOS8iso_BaseOS/"/>
+    </repository>
+
+    <repository type="rpm-md" alias="CentOS8-iso-AppStream">
+        <source path="dir:///root/local_repositories/CentOS8iso_AppStream/"/>
+    </repository>
+
+    <repository type="rpm-md" alias="Quick-Test" priority="1">
+        <source path="dir:///root/local_repositories/quick_test_repo/"/>
+    </repository>
+
+    <repository type="rpm-md" alias="MCPTT-BASE" priority="2">
+        <source path="dir:///root/local_repositories/mcptt_base_repo/"/>
+    </repository>
+
+   <packages type="image">
+<!--        <namedCollection name="core"/> -->
+        <package name="syslinux"/>
+        <package name="grub2"/>
+        <package name="kernel"/>
+        <package name="plymouth-theme-charge"/>
+
+     <!-- BaseOS additional RPMs -->
+           <package name="openssh-server"/>
+           <package name="openssh"/>
+           <package name="vim-minimal"/>
+           <package name="unzip"/>
+           <package name="tcl"/>
+           <package name="openssh-clients"/>
+           <package name="glibc"/>
+           <package name="bash"/>
+           <package name="openssl-devel"/>
+           <package name="perl-Data-Dumper"/>
+
+     <!-- AppStream additional RPMs -->
+           <package name="wget"/>
+           <package name="boost-thread"/>
+           <package name="libpcap"/>
+           <package name="perl-Compress-Raw-Bzip2"/>
+           <package name="perl-Compress-Raw-Zlib"/>
+           <package name="perl-DBI"/> 
+           <package name="perl-Digest"/>
+           <package name="perl-Digest-MD5"/>
+           <package name="perl-IO-Compress"/>
+           <package name="python3-pexpect"/>
+           <package name="gsm"/>
+           <package name="libsndfile"/>
+           <package name="libtool"/>
+           <package name="python36"/>
+          
+     <!-- MCPTT Base RPMs -->
+           <package name="htop-2.2.0-6.el8"/>
+           <package name="bcg729-1.0.4-4.el7"/>
+           <package name="sngrep-1.4.7-0.el7"/>
+           <package name="libecap-1.0.1"/>
+           
+     <!-- MCPTT Extra RPMs -->
+           <package name="boost-program-options"/>
+           <package name="check-mk-agent"/>
+           <package name="compat-openssl10"/>
+           <package name="esa"/>
+           <package name="galera"/>
+           <package name="gnutls"/>
+           <package name="jdk1.8"/>
+           <package name="lib64boost_program_options1.53.0"/>           
+           <package name="libnsl"/>
+           <package name="MariaDB-backup"/>
+           <package name="MariaDB-client"/>
+           <package name="MariaDB-common"/>
+           <package name="MariaDB-compat"/>
+           <package name="MariaDB-devel"/>
+           <package name="MariaDB-server"/>
+           <package name="MariaDB-shared"/>
+           <package name="maxscale"/>
+           <package name="mysql-connector-java"/>
+           <package name="mysql-connector-python3"/>
+           <package name="mysql-connector-python3-cext"/>
+           <package name="MySQL-python"/>
+           <package name="nettle"/>
+           <package name="socat"/>
+           <package name="trousers"/>
+    </packages>
+
+    <packages type="bootstrap">
+        <package name="filesystem"/>
+        <package name="basesystem"/>
+        <package name="grub2-efi-x64-modules"/>
+        <package name="grub2-efi-x64"/>
+        <package name="shim-x64" arch="x86_64"/>
+    </packages>
+	
+</image>
+
