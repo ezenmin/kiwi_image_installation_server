@@ -34,7 +34,7 @@ pipeline {
     stage('Docker Run') {
      steps{
          script {
-            dockerImage.run("-d --name kiwi_jenkins --privileged --device-cgroup-rule="b 7:* rmw" ")
+            dockerImage.run("-d --name kiwi_jenkins --privileged")
          }
       }
     }
