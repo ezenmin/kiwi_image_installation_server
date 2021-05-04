@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-          image kiwing_jenkins4
-          args '-u root'
-        }
-    } 
+    agent any
     environment {
         // user_id at dockerhub
         registry = "ezenmin/kiwing_imgbuilder4"
@@ -46,6 +41,12 @@ pipeline {
 
     // Running image builidng command
     stage('kiwi-ng command') {
+     agent {
+        docker {
+          image 'ezenmin/kiwing_imgbuilder4'
+          args '-u root'
+         }
+     }
      steps{
          script {
             dockerImage.inside("-u 0:0"){
