@@ -2,9 +2,9 @@ pipeline {
     agent any 
     environment {
         // user_id at dockerhub
-        registry = "ezenmin/kiwi_imgbuilder"
+        registry = "ezenmin/kiwing_imgbuilder1"
         //- update your credentials ID after creating credentials for connecting to Docker Hub
-        registryCredential = 'ezenmin_dockerhub'
+        registryCredential = 'ezenmin_cred'
         dockerImage = ''
     }
     
@@ -34,7 +34,7 @@ pipeline {
     stage('Docker Run') {
      steps{
          script {
-            dockerImage.run("-d --name kiwi_jenkins --privileged")
+            dockerImage.run(" --name kiwing_jenkins1 --privileged")
          }
       }
     }
