@@ -41,16 +41,10 @@ pipeline {
 
     // Running image builidng command
     stage('kiwi-ng command') {
-     agent {
-        docker {
-          image 'ezenmin/kiwing_imgbuilder4'
-          args '-u root'
-         }
-     }
      steps{
          script {
-            dockerImage.inside("-u 0:0"){
-               sh (script: "kiwi-ng --debug --profile=VMWare --type oem system build --description /root/kiwi-descriptions/samples --target-dir /root/local_repositories/docker_image_output/sampleimage_jenkins")
+            dockerImage.withRun('-u 0:0'){
+               sh 'kiwi-ng --debug --profile=VMWare --type oem system build --description /root/kiwi-descriptions/samples --target-dir /root/local_repositories/docker_image_output/sampleimage_jenkins'
             }
          }
       }
