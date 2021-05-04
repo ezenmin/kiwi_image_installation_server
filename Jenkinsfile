@@ -43,7 +43,7 @@ pipeline {
     stage('kiwi-ng command') {
      steps{
          script {
-            dockerImage.withRun('-u 0:0'){
+            dockerImage.withRun('-i -d -u 0:0'){
                sh 'kiwi-ng --debug --profile=VMWare --type oem system build --description /root/kiwi-descriptions/samples --target-dir /root/local_repositories/docker_image_output/sampleimage_jenkins'
             }
          }
