@@ -34,7 +34,7 @@ pipeline {
     stage('Docker Run') {
      steps{
          script {
-            dockerImage.run(" --name kiwing_jenkins1 --privileged")
+            dockerImage.run("-i --name kiwing_jenkins1 --privileged")
          }
       }
     }
