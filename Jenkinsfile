@@ -36,7 +36,7 @@ pipeline {
          script {
             dockerImage.run("-i --name kiwing_jenkins4 --privileged --net=host --device-cgroup-rule='b 7:* rmw' -v /home/ericsson/:/root/local_repositories ")
            
-             dockerImage.(registry).inside("--link ${c.id}:db"){
+             dockerImage.('kiwing_jenkins4').inside("--link ${c.id}:db"){
                sh 'kiwi-ng --debug --profile=VMWare --type oem system build --description /root/kiwi-descriptions/samples --target-dir /root/local_repositories/ docker_image_output/sampleimage_jenkins'
             }
          }
