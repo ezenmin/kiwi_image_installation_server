@@ -2,7 +2,7 @@ pipeline {
     agent any 
     environment {
         // user_id at dockerhub
-        registry = "ezenmin/kiwing_imgbuilder3"
+        registry = "ezenmin/kiwing_imgbuilder4"
         //- update your credentials ID after creating credentials for connecting to Docker Hub
         registryCredential = 'ezenmin_cred'
         dockerImage = ''
@@ -34,7 +34,11 @@ pipeline {
     stage('Docker Run') {
      steps{
          script {
-            dockerImage.run("-i --name kiwing_jenkins3 --privileged --net=host --device-cgroup-rule='b 7:* rmw' -v /home/ericsson/:/root/local_repositories ")
+            dockerImage.run("-i --name kiwing_jenkins4 --privileged --net=host --device-cgroup-rule='b 7:* rmw' -v /home/ericsson/:/root/local_repositories ")
+           
+             dockerImage.(registry).inside("--link ${c.id}:db"){
+               sh 'kiwi-ng --debug --profile=VMWare --type oem system build --description /root/kiwi-descriptions/samples --target-dir /root/local_repositories/ docker_image_output/sampleimage_jenkins'
+            }
          }
       }
     }
