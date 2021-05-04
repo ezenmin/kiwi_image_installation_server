@@ -30,20 +30,11 @@ pipeline {
       }
     }
 
-    // Running Docker container, make sure port 8096 is opened in 
-    stage('Docker Run') {
-     steps{
-         script {
-            dockerImage.run("-i --name kiwing_jenkins4 --privileged --net=host --device-cgroup-rule='b 7:* rmw' -v /home/ericsson/:/root/local_repositories ")
-         }
-     }
-    }
-
     // Running image builidng command
     stage('kiwi-ng command') {
      steps{
          script {
-            dockerImage.withRun('-i -d -u 0:0'){
+            docker.image('ezenmin/kiwing_imgbuilder4').withRun("-i -u 0:0 --name kiwing_jenkins4 --privileged --net=host --device-cgroup-rule='b 7:* rmw' -v /home/ericsson/:/root/local_repositories"){
                sh 'kiwi-ng --debug --profile=VMWare --type oem system build --description /root/kiwi-descriptions/samples --target-dir /root/local_repositories/docker_image_output/sampleimage_jenkins'
             }
          }
