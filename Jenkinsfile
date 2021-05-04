@@ -2,7 +2,7 @@ pipeline {
     agent any 
     environment {
         // user_id at dockerhub
-        registry = "ezenmin/kiwing_imgbuilder1"
+        registry = "ezenmin/kiwing_imgbuilder2"
         //- update your credentials ID after creating credentials for connecting to Docker Hub
         registryCredential = 'ezenmin_cred'
         dockerImage = ''
