@@ -2,7 +2,7 @@ pipeline {
     agent any 
     environment {
         // user_id at dockerhub
-        registry = "ezenmin/kiwing_imgbuilder2"
+        registry = "ezenmin/kiwing_imgbuilder3"
         //- update your credentials ID after creating credentials for connecting to Docker Hub
         registryCredential = 'ezenmin_cred'
         dockerImage = ''
@@ -34,7 +34,7 @@ pipeline {
     stage('Docker Run') {
      steps{
          script {
-            dockerImage.run("-i --name kiwing_jenkins2 --privileged")
+            dockerImage.run("-i --name kiwing_jenkins3 --privileged --net=host --device-cgroup-rule='b 7:* rmw' -v /home/ericsson/:/root/local_repositories ")
          }
       }
     }
