@@ -1,6 +1,7 @@
 pipeline {
     agent {
         docker {
+          image kiwing_jenkins4
           args '-u root'
         }
     } 
