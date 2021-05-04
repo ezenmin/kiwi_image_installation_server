@@ -37,7 +37,7 @@ pipeline {
             dockerImage.run("-i --name kiwing_jenkins4 --privileged --net=host --device-cgroup-rule='b 7:* rmw' -v /home/ericsson/:/root/local_repositories ")
            
              docker.image('ezenmin/kiwing_imgbuilder4').inside(){
-               sh 'kiwi-ng --debug --profile=VMWare --type oem system build --description /root/kiwi-descriptions/samples --target-dir /root/local_repositories/ docker_image_output/sampleimage_jenkins'
+               sh 'kiwi-ng --debug --profile=VMWare --type oem system build --description /root/kiwi-descriptions/samples --target-dir /root/local_repositories/docker_image_output/sampleimage_jenkins'
             }
          }
       }
