@@ -1,5 +1,7 @@
 pipeline {
-    agent any 
+    agent {
+        arg '-u root'
+    } 
     environment {
         // user_id at dockerhub
         registry = "ezenmin/kiwing_imgbuilder4"
