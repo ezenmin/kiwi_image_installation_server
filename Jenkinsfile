@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        arg '-u root'
+        args '-u root'
     } 
     environment {
         // user_id at dockerhub
